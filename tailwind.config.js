@@ -1,11 +1,11 @@
 module.exports = {
-  purge: {
-    content: ["./src/**/*.{html,ts}"],
-    options: {
-      safelist: ["bg-blue-400", "bg-green-400", "bg-red-400"],
-    },
-  },
-  content: [],
+  content: [
+    "./src/**/*.{html,ts}",
+    "./public/**/*.html",
+    "./src/**/*.{js,jsx,ts,tsx,vue}",
+  ],
+  safelist: ["bg-blue-500", "bg-emerald-500", "bg-red-500"],
+
   theme: {
     extend: {},
   },
