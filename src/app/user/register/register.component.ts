@@ -1,3 +1,4 @@
+import { RegisterValidators } from './../validators/register-validators';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -31,14 +32,17 @@ export class RegisterComponent {
   alertColor = 'blue';
   isSubmitting = false;
 
-  registerForm = new FormGroup({
-    name: this.name,
-    email: this.email,
-    age: this.age,
-    password: this.password,
-    confirmPassword: this.confirmPassword,
-    phoneNumber: this.phoneNumber,
-  });
+  registerForm = new FormGroup(
+    {
+      name: this.name,
+      email: this.email,
+      age: this.age,
+      password: this.password,
+      confirmPassword: this.confirmPassword,
+      phoneNumber: this.phoneNumber,
+    },
+    [RegisterValidators.match(this.password.value, this.confirmPassword.value)]
+  );
 
   async register() {
     this.isSubmitting = true;
@@ -56,6 +60,5 @@ export class RegisterComponent {
       this.alertColor = 'red';
       this.isSubmitting = false;
     }
-
   }
 }

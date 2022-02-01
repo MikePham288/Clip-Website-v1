@@ -28,5 +28,8 @@
     Password must be at least 8 character long, have 1 uppercase letter, 1
     lowercase letter, and 1 number
   </p>
+  <p *ngIf="control.errors?.noMatch" class="text-red-500">
+    Passwords do match! Please try again
+  </p>
   <!-- <p>{{ registerForm.get("name")?.errors }}</p> -->
 </ng-container>
