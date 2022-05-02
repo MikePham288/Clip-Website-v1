@@ -18,6 +18,10 @@ const routes: Routes = [
       authenticatedOnly: true,
     },
   },
+  {
+    path: 'manage-clips',
+    redirectTo: 'manage', // sample of how to redirect route into a new route
+  },
 ];
 
 @NgModule({
