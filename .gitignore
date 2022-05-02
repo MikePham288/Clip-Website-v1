@@ -40,3 +40,14 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+templates/404.html
+templates/about.html
+templates/custom.css
+templates/index.html
+templates/manage.html
+templates/upload.html
+templates/video.html
+templates/assets/img/1.jpg
+templates/assets/img/2.jpg
+templates/assets/img/3.jpg
+templates/assets/video/hero.webm
