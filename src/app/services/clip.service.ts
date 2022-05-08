@@ -37,4 +37,8 @@ export class ClipService {
       })
     );
   }
+
+  updateClip(id: string, title: string) {
+    return this.clipCollection.doc(id).update({ clipTitle: title });
+  }
 }
