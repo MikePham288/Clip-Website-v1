@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import IUser from '../models/user.model';
+import User from '../models/user.model';
 import { delay, filter, map, Observable, of, switchMap } from 'rxjs';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private userCollection: AngularFirestoreCollection<IUser>;
+  private userCollection: AngularFirestoreCollection<User>;
   public isAuthenticated$: Observable<boolean>;
   public isAuthenticatedWithDelay$: Observable<boolean>;
   public redirect = false;
@@ -38,7 +38,7 @@ export class AuthService {
       });
   }
 
-  public async createUser(userData: IUser) {
+  public async createUser(userData: User) {
     if (!userData.password) {
       throw new Error('password is required');
     }
