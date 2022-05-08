@@ -21,7 +21,7 @@ export class ClipService {
     private auth: AngularFireAuth,
     private storage: AngularFireStorage
   ) {
-    this.clipCollection = db.collection('clip');
+    this.clipCollection = db.collection('clips');
   }
 
   addClip(data: Clip): Promise<DocumentReference<Clip>> {
