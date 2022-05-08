@@ -8,6 +8,7 @@ import {
   DocumentReference,
   QuerySnapshot,
 } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,11 @@ import {
 export class ClipService {
   private clipCollection: AngularFirestoreCollection<Clip>;
 
-  constructor(private db: AngularFirestore, private auth: AngularFireAuth) {
+  constructor(
+    private db: AngularFirestore,
+    private auth: AngularFireAuth,
+    private storage: AngularFireStorage
+  ) {
     this.clipCollection = db.collection('clip');
   }
 
@@ -40,5 +45,11 @@ export class ClipService {
 
   updateClip(id: string, title: string) {
     return this.clipCollection.doc(id).update({ clipTitle: title });
+  }
+
+  async deleteClip(clip: Clip) {
+    const clipRef = this.storage.ref(`clips/${clip.fileName}`);
+    await clipRef.delete();
+    await this.clipCollection.doc(clip.documentId).delete();
   }
 }
