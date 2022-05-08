@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Clip from '../models/clip.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { switchMap, of, map } from 'rxjs';
+import { switchMap, of, map, BehaviorSubject, combineLatest } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -28,13 +28,16 @@ export class ClipService {
     return this.clipCollection.add(data);
   }
 
-  getUserClip() {
-    return this.auth.user.pipe(
-      switchMap((user) => {
+  getUserClip(sort$: BehaviorSubject<string>) {
+    return combineLatest([this.auth.user, sort$]).pipe(
+      switchMap((values) => {
+        const [user, sort] = values;
         if (!user) {
           return of([]);
         }
-        const clipQuery = this.clipCollection.ref.where('uid', '==', user.uid);
+        const clipQuery = this.clipCollection.ref
+          .where('uid', '==', user.uid)
+          .orderBy('timeStamp', sort === '1' ? 'asc' : 'desc');
         return clipQuery.get();
       }),
       map((snapshot) => {
