@@ -6,4 +6,5 @@ export default interface Clip {
   fileName: string;
   url: string;
   timeStamp: firebase.firestore.FieldValue;
+  documentId?: string;
 }
