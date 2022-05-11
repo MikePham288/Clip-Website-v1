@@ -1,6 +1,8 @@
 # Clips.Personal.Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
+### This is the v1 version of the clip website project.
+
+### This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4, WebAssembly for frontend and Google Firebase for backend.
 
 ## Development server
 
