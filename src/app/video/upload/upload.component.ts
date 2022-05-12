@@ -32,6 +32,8 @@ export class UploadComponent implements OnDestroy {
   user: firebase.User | null = null;
   task?: AngularFireUploadTask;
   screenshots: string[] = [];
+  selectedScreenshot = '';
+  screenshotTask?: AngularFireUploadTask;
 
   uploadForm = new FormGroup({
     title: this.title,
@@ -53,6 +55,9 @@ export class UploadComponent implements OnDestroy {
   }
 
   async storeFile(event: Event) {
+    if (this.ffmpegService.isRunning) {
+      return;
+    }
     this.isDragOver = false;
     this.file = (event as DragEvent).dataTransfer
       ? (event as DragEvent).dataTransfer?.files.item(0) ?? null
@@ -61,8 +66,8 @@ export class UploadComponent implements OnDestroy {
       return;
     }
     this.screenshots = await this.ffmpegService.getScreenshots(this.file);
-    console.log(this.screenshots);
-    console.log('event: ', this.file);
+    this.selectedScreenshot = this.screenshots[0];
+
     this.title.setValue(this.file.name.replace(/\.[^/.]+$/, ''));
     this.showForm = true;
   }
@@ -74,8 +79,19 @@ export class UploadComponent implements OnDestroy {
     this.showPercentage = true;
     const clipFileName = uuid();
     const clipPath = `clips/${clipFileName}.mp4`;
+
+    const screenshotBlob = await this.ffmpegService.blobFromURL(
+      this.selectedScreenshot
+    );
+
+    const screenshotPath = `screenshots/${clipFileName}.png`;
     this.task = this.angularFireStorage.upload(clipPath, this.file);
     const clipRef = this.angularFireStorage.ref(clipPath);
+
+    this.screenshotTask = this.angularFireStorage.upload(
+      screenshotPath,
+      screenshotBlob
+    );
     this.task.percentageChanges().subscribe((progress) => {
       this.percentage = (progress as number) / this.HUNDRED_PERCENT;
     });
