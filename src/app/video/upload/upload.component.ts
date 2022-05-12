@@ -5,7 +5,7 @@ import {
   AngularFireUploadTask,
 } from '@angular/fire/compat/storage';
 import { v4 as uuid } from 'uuid';
-import { last, switchMap, combineLatest } from 'rxjs';
+import { switchMap, combineLatest, forkJoin } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { ClipService } from '../../services/clip.service';
@@ -92,6 +92,8 @@ export class UploadComponent implements OnDestroy {
       screenshotPath,
       screenshotBlob
     );
+
+    const screenshotRef = this.angularFireStorage.ref(screenshotPath);
     combineLatest([
       this.task.percentageChanges(),
       this.screenshotTask.percentageChanges(),
@@ -104,24 +106,29 @@ export class UploadComponent implements OnDestroy {
       this.percentage = (total as number) / (this.HUNDRED_PERCENT * 2);
     });
 
-    this.task
-      .snapshotChanges()
+    // wait for both subscriptions to complete, then stream the value to subscriber
+    forkJoin([
+      this.task.snapshotChanges(),
+      this.screenshotTask.snapshotChanges(),
+    ])
       .pipe(
-        last(),
-        switchMap(() => clipRef.getDownloadURL())
+        switchMap(() =>
+          forkJoin([clipRef.getDownloadURL(), screenshotRef.getDownloadURL()])
+        )
       )
       .subscribe({
-        next: async (url) => {
+        next: async (urls) => {
+          const [clipURL, screenshotURL] = urls;
           const clip = {
             uid: this.user?.uid as string,
             displayName: this.user?.displayName as string,
             clipTitle: this.title.value as string,
             fileName: `${clipFileName}.mp4` as string,
-            url,
+            clipUrl: clipURL,
+            screenshotURL,
             timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           const clipDocumentRef = await this.clipService.addClip(clip);
-          console.log(clip);
           this.alertColor = 'emerald';
           this.alertMessage =
             'Success! Your clip is now ready to share with the world!';
