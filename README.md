@@ -1,29 +1,23 @@
 # Clips.Personal.Project
 
-### This is the v1 version of the clip website project.
+This is the version 1 of this project, where I was mostly learning and applying basic knowledge from tutorials. This project uses Angular (13.3.5), WebAssembly, Videojs, Tailwind CSS and Firebase for backend.
 
-### This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4, WebAssembly for frontend and Google Firebase for backend.
+## Functionality
 
-## Development server
+This is a video website that have some functions like:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Watch clips (your clip or someone else's clip)
+- Create account to use the following functions
+- Manage your clips
+- Upload your clips
+- Generate 3 thumbnails that was picked from your clip (generated from first, second, and third second of the clip respectively using WebAssembly)
+- Copy your clip's URL in manage page by a click of a button.
 
-## Code scaffolding
+## Further improvements in future
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This project was me mostly learning from tutorials, so I would want to redesign/ remake this project to improve some of the following points:
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- I would want to use custom css as much as possible instead of using Tailwind CSS.
+- Design and develop its own back-end application instead of using FIrebase (probably in C# .Net 6 or MongoDB)e
+- some more touchups on the projects, like filtering the playing clips from the recommending clips list, more customized design/theme
+- Last but not least, the most important part is to do clean up codes on some of the files: separate functions, etc
