@@ -76,4 +76,15 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
+  async copyToClipboard(event: Event, id: string | undefined) {
+    event.preventDefault();
+    if (!id) {
+      return;
+    }
+
+    const url = `${location.origin}/clip/${id}`;
+
+    await navigator.clipboard.writeText(url);
+  }
 }
