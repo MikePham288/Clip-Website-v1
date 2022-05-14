@@ -25,7 +25,7 @@
       *ngFor="let clip of this.clips"
     >
       <!-- Image -->
-      <a href="#">
+      <a [routerLink]="['/', 'clip', clip.documentId]">
         <img
           crossorigin
           class="card-img-top rounded-tl-2xl w-full"
