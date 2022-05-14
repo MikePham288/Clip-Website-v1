@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     this.showAlert = true;
     // this.alertMessage = 'Please wait! Your account is being created.';
     // this.alertColor = 'blue';
-    console.log('login object: ', this.credentials);
     try {
       await this.auth.signInWithEmailAndPassword(
         this.credentials.email,

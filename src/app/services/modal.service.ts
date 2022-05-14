@@ -18,7 +18,6 @@ export class ModalService {
       id,
       visible: false,
     });
-    console.log('modals array: ', this.modals);
   }
 
   unregister(id: string) {

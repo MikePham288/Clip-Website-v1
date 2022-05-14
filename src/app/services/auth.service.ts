@@ -24,7 +24,6 @@ export class AuthService {
     private activatedRoute: ActivatedRoute
   ) {
     this.userCollection = db.collection('users');
-    auth.user.subscribe(console.log);
     this.isAuthenticated$ = auth.user.pipe(map((user) => !!user));
     this.isAuthenticatedWithDelay$ = this.isAuthenticated$.pipe(delay(1000));
     this.router.events
@@ -49,7 +48,6 @@ export class AuthService {
     if (!userCred.user) {
       throw new Error('User cannot be found');
     }
-    console.log('user cred: ', userCred);
     await this.userCollection.doc(userCred.user?.uid).set({
       name: userData.name,
       email: userData.email,

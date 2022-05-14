@@ -34,10 +34,7 @@ export class ClipslistComponent implements OnInit, OnDestroy {
     const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight;
 
     if (bottomOfWindow) {
-      console.log('bottom of window');
       this.clipService.getClips();
-    } else {
-      console.log(offsetHeight);
     }
   };
 }

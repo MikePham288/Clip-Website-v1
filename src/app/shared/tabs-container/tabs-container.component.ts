@@ -16,7 +16,6 @@ export class TabsContainerComponent implements OnInit, AfterContentInit {
   @ContentChildren(TabComponent) tabs?: QueryList<TabComponent>;
   constructor() {}
   ngAfterContentInit(): void {
-    console.log('tab property: ', this.tabs);
     const activeTabs = this.tabs?.filter((tab) => tab.active === true);
     if (!activeTabs || activeTabs.length === 0) {
       this.selectTab(this.tabs!.first);

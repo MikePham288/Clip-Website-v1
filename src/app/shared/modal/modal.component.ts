@@ -9,9 +9,7 @@ import { ModalService } from '../../services/modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
   @Input() modalID = '';
-  constructor(public modal: ModalService, public element: ElementRef) {
-    // console.log('modal value:', this.modal.visible);
-  }
+  constructor(public modal: ModalService, public element: ElementRef) {}
   ngOnDestroy(): void {
     document.body.removeChild(this.element.nativeElement);
   }
