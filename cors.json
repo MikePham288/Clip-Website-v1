@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:4200"],
+    "origin": ["http://localhost:4200", "https://clip-website-v1.vercel.app"],
     "responseHeader": ["Content-Type"],
     "method": ["GET"],
     "maxAgeSeconds": 3600
